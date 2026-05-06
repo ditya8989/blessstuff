@@ -46,7 +46,7 @@ const products = [
     color: "Khaki",
     status: "Ready",
     note: "Jaket ini cocok buat outfit ngampus atau pakaian santai sehari-hari. Minus: tidak ada.",
-    image: "./assets/fulaiou.png",
+    image: "./fulaiou.png",
     shopeeUrl: STORE.shopeeBaseUrl,
   },
   {
@@ -60,7 +60,7 @@ const products = [
     color: "Ivory",
     status: "Ready",
     note: "Jaket ini cocok buat outfit ngampus atau pakaian santai sehari-hari. Minus: noda samar dan resleting gantian.",
-    image: "./assets/rogatis.png",
+    image: "./rogatis.png",
     shopeeUrl: STORE.shopeeBaseUrl,
   },
   {
@@ -74,7 +74,7 @@ const products = [
     color: "Cream",
     status: "Ready",
     note: "Buat nongki dan daily cocok banget. Simple, tidak ribet, dan looks-nya masuk ke banyak fit.",
-    image: "./assets/frionjacket.png",
+    image: "./frionjacket.png",
     shopeeUrl: STORE.shopeeBaseUrl,
   },
   {
@@ -88,7 +88,7 @@ const products = [
     color: "Blue Grey",
     status: "Ready",
     note: "Jaket ini cocok buat outfit ngampus atau pakaian santai sehari-hari. Minus: tidak ada.",
-    image: "./assets/silkjacket.png",
+    image: "./silkjacket.png",
     shopeeUrl: STORE.shopeeBaseUrl,
   },
   {
@@ -102,7 +102,7 @@ const products = [
     color: "Beige",
     status: "Ready",
     note: "Looks casual, cocok banget buat ngampus atau ngopi sama teman. Fit terasa cozy.",
-    image: "./assets/jobalman.png",
+    image: "./jobalman.png",
     shopeeUrl: STORE.shopeeBaseUrl,
   },
   {
@@ -116,7 +116,7 @@ const products = [
     color: "Navy",
     status: "Ready",
     note: "Bahan tebal, cocok buat bepergian jauh atau dipakai ke kampus. Minus: tidak ada.",
-    image: "./assets/modeanpila.png",
+    image: "./modeanpila.png",
     shopeeUrl: STORE.shopeeBaseUrl,
   },
   {
@@ -130,7 +130,7 @@ const products = [
     color: "Check Grey",
     status: "Ready",
     note: "Jaket ini cocok buat outfit ngampus atau pakaian santai sehari-hari. Minus: kancing tangan sebelah kanan tidak bisa.",
-    image: "./assets/tradyjacket.png",
+    image: "./tradyjacket.png",
     shopeeUrl: STORE.shopeeBaseUrl,
   },
 ];
