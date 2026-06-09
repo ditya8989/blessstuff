@@ -37,20 +37,6 @@ const blogs = [
 const products = [
   {
     id: "BS-001",
-    name: "Fullaiou Jacket",
-    category: "atasan",
-    size: "XL",
-    width: "72 cm",
-    length: "59 cm",
-    condition: "Good condition 9/10",
-    color: "Khaki",
-    status: "Ready",
-    note: "Jaket ini cocok buat outfit ngampus atau pakaian santai sehari-hari. Minus: tidak ada.",
-    image: "./fulaiou.png",
-    shopeeUrl: STORE.shopeeBaseUrl,
-  },
-  {
-    id: "BS-002",
     name: "Rogatis Jacket",
     category: "atasan",
     size: "XL",
@@ -60,11 +46,11 @@ const products = [
     color: "Ivory",
     status: "Ready",
     note: "Jaket ini cocok buat outfit ngampus atau pakaian santai sehari-hari. Minus: noda samar dan resleting gantian.",
-    image: "./rogatis.png",
+    images: ["./rogatis.png"],
     shopeeUrl: STORE.shopeeBaseUrl,
   },
   {
-    id: "BS-003",
+    id: "BS-002",
     name: "Frion Jacket",
     category: "atasan",
     size: "XL",
@@ -74,11 +60,11 @@ const products = [
     color: "Cream",
     status: "Ready",
     note: "Buat nongki dan daily cocok banget. Simple, tidak ribet, dan looks-nya masuk ke banyak fit.",
-    image: "./frionjacket.png",
+    images: ["./frionjacket.png"],
     shopeeUrl: STORE.shopeeBaseUrl,
   },
   {
-    id: "BS-004",
+    id: "BS-003",
     name: "Silk Jacket",
     category: "atasan",
     size: "L Boxy",
@@ -88,25 +74,11 @@ const products = [
     color: "Blue Grey",
     status: "Ready",
     note: "Jaket ini cocok buat outfit ngampus atau pakaian santai sehari-hari. Minus: tidak ada.",
-    image: "./silkjacket.png",
+    images: ["./silkjacket.png"],
     shopeeUrl: STORE.shopeeBaseUrl,
   },
   {
-    id: "BS-005",
-    name: "Jobalman Jacket",
-    category: "atasan",
-    size: "L",
-    width: "61 cm",
-    length: "58 cm",
-    condition: "Good condition",
-    color: "Beige",
-    status: "Ready",
-    note: "Looks casual, cocok banget buat ngampus atau ngopi sama teman. Fit terasa cozy.",
-    image: "./jobalman.png",
-    shopeeUrl: STORE.shopeeBaseUrl,
-  },
-  {
-    id: "BS-006",
+    id: "BS-004",
     name: "Modian Pila Jacket",
     category: "atasan",
     size: "L",
@@ -116,21 +88,63 @@ const products = [
     color: "Navy",
     status: "Ready",
     note: "Bahan tebal, cocok buat bepergian jauh atau dipakai ke kampus. Minus: tidak ada.",
-    image: "./modeanpila.png",
+    images: ["./modeanpila.png"],
+    shopeeUrl: STORE.shopeeBaseUrl,
+  },
+  {
+    id: "BS-005",
+    name: "Carhart Jacket",
+    category: "atasan",
+    size: "L",
+    width: "Tanya admin",
+    length: "Tanya admin",
+    condition: "Ready stock",
+    color: "Charcoal",
+    status: "Ready",
+    note: "Update katalog terbaru. Detail ukuran dan kondisi lengkap bisa ditanyakan langsung melalui WhatsApp.",
+    images: ["./carhart.jpg", "./carhart1.jpg"],
+    shopeeUrl: STORE.shopeeBaseUrl,
+  },
+  {
+    id: "BS-006",
+    name: "Champion Sweatshirt",
+    category: "atasan",
+    size: "Tanya admin",
+    width: "Tanya admin",
+    length: "Tanya admin",
+    condition: "Ready stock",
+    color: "Navy",
+    status: "Ready",
+    note: "Update katalog terbaru. Foto bisa digeser untuk melihat detail produk dari beberapa sisi.",
+    images: ["./champion.jpg", "./champion1.png"],
     shopeeUrl: STORE.shopeeBaseUrl,
   },
   {
     id: "BS-007",
-    name: "Trady Jacket",
+    name: "Flying Hawk Jacket",
     category: "atasan",
-    size: "L Boxy",
-    width: "66 cm",
-    length: "52 cm",
-    condition: "Good condition 9/10",
-    color: "Check Grey",
+    size: "Tanya admin",
+    width: "Tanya admin",
+    length: "Tanya admin",
+    condition: "Ready stock",
+    color: "Black",
     status: "Ready",
-    note: "Jaket ini cocok buat outfit ngampus atau pakaian santai sehari-hari. Minus: kancing tangan sebelah kanan tidak bisa.",
-    image: "./tradyjacket.png",
+    note: "Update katalog terbaru. Detail ukuran dan kondisi lengkap bisa ditanyakan langsung melalui WhatsApp.",
+    images: ["./flyinghaw.jpg", "./flyinghaw1.png"],
+    shopeeUrl: STORE.shopeeBaseUrl,
+  },
+  {
+    id: "BS-008",
+    name: "Plaid Tartan Jacket",
+    category: "atasan",
+    size: "Tanya admin",
+    width: "Tanya admin",
+    length: "Tanya admin",
+    condition: "Ready stock",
+    color: "Tartan",
+    status: "Ready",
+    note: "Update katalog terbaru. Foto bisa digeser untuk melihat detail produk dari beberapa sisi.",
+    images: ["./Plaidtartan.jpg", "./plaidtartan1.png"],
     shopeeUrl: STORE.shopeeBaseUrl,
   },
 ];
@@ -149,6 +163,8 @@ const icons = {
 
 let activeCategory = "atasan";
 let searchTerm = "";
+const imageIndexes = {};
+let dialogImageIndex = 0;
 
 const SECRET_PRICE = "???.???.Rp";
 
@@ -205,12 +221,33 @@ const renderProducts = () => {
 
   grid.innerHTML = visibleProducts
     .map(
-      (product) => `
+      (product) => {
+        const currentIndex = imageIndexes[product.id] || 0;
+        const images = product.images || [product.image];
+        const currentImage = images[currentIndex] || images[0];
+        const hasGallery = images.length > 1;
+
+        return `
         <article class="product-card">
           <div class="product-image">
             <span class="product-code">${product.id}</span>
             <span class="promo-badge">PROMO<br />XTRA</span>
-            <img src="${product.image}" alt="${product.name}" loading="lazy" />
+            <img src="${currentImage}" alt="${product.name}" loading="lazy" />
+            ${
+              hasGallery
+                ? `
+                  <button class="gallery-btn gallery-prev" type="button" data-gallery="${product.id}" data-direction="-1" aria-label="Foto sebelumnya ${product.name}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+                  </button>
+                  <button class="gallery-btn gallery-next" type="button" data-gallery="${product.id}" data-direction="1" aria-label="Foto berikutnya ${product.name}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+                  </button>
+                  <div class="gallery-dots" aria-label="Posisi foto">
+                    ${images.map((_, index) => `<span class="${index === currentIndex ? "is-active" : ""}"></span>`).join("")}
+                  </div>
+                `
+                : ""
+            }
           </div>
           <div class="product-info">
             <h3>${product.name}</h3>
@@ -235,9 +272,22 @@ const renderProducts = () => {
             </div>
           </div>
         </article>
-      `,
+      `;
+      },
     )
     .join("");
+
+  grid.querySelectorAll("[data-gallery]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const product = products.find((item) => item.id === button.dataset.gallery);
+      const images = product.images || [product.image];
+      const current = imageIndexes[product.id] || 0;
+      const direction = Number(button.dataset.direction);
+      imageIndexes[product.id] = (current + direction + images.length) % images.length;
+      renderProducts();
+    });
+  });
 
   grid.querySelectorAll("[data-detail]").forEach((button) => {
     button.addEventListener("click", () => openDialog(button.dataset.detail));
@@ -266,12 +316,33 @@ const openDialog = (productId) => {
   const product = products.find((item) => item.id === productId);
   const dialog = document.querySelector("#productDialog");
   const body = document.querySelector("#dialogBody");
+  dialogImageIndex = imageIndexes[product.id] || 0;
 
-  body.innerHTML = `
+  const renderDialogBody = () => {
+    const images = product.images || [product.image];
+    const currentImage = images[dialogImageIndex] || images[0];
+    const hasGallery = images.length > 1;
+
+    body.innerHTML = `
     <div class="dialog-image">
       <span class="product-code">${product.id}</span>
       <span class="promo-badge">PROMO<br />XTRA</span>
-      <img src="${product.image}" alt="${product.name}" />
+      <img src="${currentImage}" alt="${product.name}" />
+      ${
+        hasGallery
+          ? `
+            <button class="gallery-btn gallery-prev" type="button" data-dialog-gallery="-1" aria-label="Foto sebelumnya ${product.name}">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+            </button>
+            <button class="gallery-btn gallery-next" type="button" data-dialog-gallery="1" aria-label="Foto berikutnya ${product.name}">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </button>
+            <div class="gallery-dots" aria-label="Posisi foto">
+              ${images.map((_, index) => `<span class="${index === dialogImageIndex ? "is-active" : ""}"></span>`).join("")}
+            </div>
+          `
+          : ""
+      }
     </div>
     <div class="dialog-content">
       <p class="section-kicker">${product.category}</p>
@@ -295,6 +366,18 @@ const openDialog = (productId) => {
       </div>
     </div>
   `;
+
+    body.querySelectorAll("[data-dialog-gallery]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const direction = Number(button.dataset.dialogGallery);
+        dialogImageIndex = (dialogImageIndex + direction + images.length) % images.length;
+        imageIndexes[product.id] = dialogImageIndex;
+        renderDialogBody();
+      });
+    });
+  };
+
+  renderDialogBody();
 
   dialog.showModal();
 };

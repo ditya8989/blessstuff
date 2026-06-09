@@ -602,6 +602,54 @@ svg {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
+.gallery-btn {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  color: #000;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translateY(-50%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+}
+
+.gallery-prev {
+  left: 12px;
+}
+
+.gallery-next {
+  right: 12px;
+}
+
+.gallery-dots {
+  position: absolute;
+  right: 12px;
+  bottom: 14px;
+  z-index: 3;
+  display: flex;
+  gap: 6px;
+}
+
+.gallery-dots span {
+  width: 7px;
+  height: 7px;
+  display: block;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(0, 0, 0, 0.18);
+}
+
+.gallery-dots span.is-active {
+  background: #fff200;
+  border-color: #ff4a2e;
+}
+
 .product-info {
   padding: 16px;
 }
